@@ -30,7 +30,9 @@ SECRET_KEY = 'js=zkh_2(o2iqs(^h7@kl=@3o_x05+6d4%r*e67dgqmqqy838j'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-     '96fe3ae8be1b.ngrok.io'
+    '*'
+    #  '96fe3ae8be1b.ngrok.io'
+    # https: // fa4764340651.ngrok.io''
 ]
 
 
