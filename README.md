@@ -12,7 +12,9 @@
 ![](https://i.imgur.com/2MEEs7T.gif)
 
 ## 安裝
+> 基本上直接pip install -r requirements.txt即可完成安裝。
 
+**注意:Ta-Lib在windows安裝應該會出現問題所以可以參考這篇[教學](https://blog.csdn.net/brucewong0516/article/details/79245471)來安裝即可安裝成功。**
 ## 功能
 主要功能會分成以下三種，分別是股票(main feature)、FSM graph獲取、貓咪圖片。下面會依序做介紹。
 ### 股票
