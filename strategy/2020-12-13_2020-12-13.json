@@ -1,0 +1,11 @@
+[
+    {
+        "code": "5876",
+        "life": 1,
+        "type": "buy",
+        "weight": 1,
+        "open_price": 40.0,
+        "close_high_price": 40.8,
+        "close_low_price": 39.96
+    }
+]

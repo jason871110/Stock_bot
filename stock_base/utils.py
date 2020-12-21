@@ -3,7 +3,8 @@ import os
 from linebot import LineBotApi, WebhookParser
 from linebot.models import *
 from django.conf import settings
-
+import json
+from datetime import datetime
 line_bot_api = LineBotApi(settings.LINE_CHANNEL_ACCESS_TOKEN)
 
 
@@ -76,4 +77,67 @@ def send_tempelate_message_model_info(reply_token,model_name):
             )
         )
     )
+def send_tw50_intro(reply_token):
+    article= "ML_TW50:\nML_TW50是我將所有台灣50的成分股票以機器學習的方式分別建置50個ensemble based的模型，最後再從這些模型組出實際使用的模型來做每日交易策略的決策。\nData:\n每隻模型的training data長短其實不太一樣，是根據該支股票開始時間來做設定的。"
+    article_tech="\n\n技術指標:\n這個模型比較特別的就是input有140幾種技術指標加上連續多天的資訊，所以在訓練上輸入維度會多達500多維。"
+    article_model="\n\n模型:\n基礎模型我是選用Ensemble 方法中的xgboost 來做使用。主要考量是想透過boosting的概念來優化這類分類任務的效能。"
+    article_work="\n\n運行:\n總共50個訓練出來的模型，我會回測2018~2020的股價資訊來看這幾隻模型的勝率和實際的效能來做實際在使用模型的時候，模型組合的選用。"
+    article=article+article_tech+article_model+article_work
+    send_text_message(reply_token,article)
+
+def show_stock_list_Tw50(reply_token):
+    now = datetime.now()
+    date_ = now.strftime("%Y-%m-%d")
+    print(date_)
+    daily_decision = json.load(open(f'strategy//{date_}_{date_}.json'))
+    bad_url="https://i.imgur.com/b0G42RZ.png"
+    good_url="https://i.imgur.com/FxmzScB.jpg"
+    stock_li=[]
+    stock_info="https://tw.stock.yahoo.com/q/bc?s="
+    for stock in  daily_decision:
+        stock_url=stock_info+stock['code']
+        temp_token=CarouselColumn(
+            thumbnail_image_url=bad_url,
+            title=stock['code'],
+            text='Action:'+stock['type'],
+            actions=[
+                URITemplateAction(
+                    label='進場點:'+str(round(stock['open_price'],2)),
+                    uri=stock_url
+                ),
+                URITemplateAction(
+                    label='進損點:'+str(round(stock['close_low_price'],2)),
+                    uri=stock_url
+                ),
+                URITemplateAction(
+                    label='停利點:'+str(round(stock['close_high_price'],2)),
+                    uri=stock_url
+                ),
+            ]
+        )
+        stock_li.append(temp_token)
+    Carousel_template = TemplateSendMessage(
+        alt_text='Carousel template',
+        template=CarouselTemplate(
+            columns=stock_li
+        )
+    )
+
+    back_action = TemplateSendMessage(
+        alt_text='Buttons template',
+        template=ButtonsTemplate(
+            title=' ',
+            text=" ",
+            actions=[PostbackTemplateAction(
+                label='Back',
+                text='back_tw',
+                data='A&performance'
+            )]
+        )
+    )
+    line_bot_api.reply_message(reply_token, [Carousel_template, back_action
+                                             ])
+
+
+
 
