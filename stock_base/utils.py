@@ -5,8 +5,57 @@ from linebot.models import *
 from django.conf import settings
 import json
 from datetime import datetime
+import requests
 line_bot_api = LineBotApi(settings.LINE_CHANNEL_ACCESS_TOKEN)
 
+
+def show_cat_menu(reply_token):
+    line_bot_api.reply_message(  # 回復「選擇地區」按鈕樣板訊息
+        reply_token,
+        TemplateSendMessage(
+            alt_text='Buttons template',
+            template=ButtonsTemplate(
+                title='Cat is good',
+                text='請選擇貓咪服務',
+                actions=[
+                    MessageTemplateAction(
+                        label='拿一張貓咪圖片',
+                        text='cat',
+                    ),
+                    MessageTemplateAction(
+                        label='貓狗辨識器',
+                        text='cat_dog',
+                    ),
+                    MessageTemplateAction(
+                        label='Back',
+                        text='back',
+                    ),
+                ]
+            )
+        )
+    )
+def send_cat_picture(reply_token):
+    data = requests.get('https://api.thecatapi.com/v1/images/search')
+    cat_url=data.json()[0]['url']
+    cat_action = TemplateSendMessage(
+        alt_text='Buttons template',
+        template=ButtonsTemplate(
+            title='貓咪狗狗一樣好',
+            text=" ",
+            actions=[
+                MessageTemplateAction(
+                    label='再一張貓咪',
+                    text='cat',
+                ),
+                MessageTemplateAction(
+                    label='Back',
+                    text='back',
+                ),
+            ]
+        )
+    )
+    line_bot_api.reply_message(reply_token,
+                               [ImageSendMessage(original_content_url=cat_url, preview_image_url=cat_url),cat_action])
 
 def send_text_message(reply_token, text):
     line_bot_api.reply_message(reply_token, TextSendMessage(text=text))

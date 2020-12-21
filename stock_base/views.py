@@ -11,8 +11,38 @@ from stock_base.utils import send_text_message
 
 from stock_base.fsm import TocMachine
 
-states = ["user","state_fsm","state_stock","state_Tw50","state_RL","state_performance","state_stock_list","state_intro"]
+states = ["user","state_cat","state_cat_show","state_cat_dog","state_fsm","state_stock","state_Tw50","state_RL","state_performance","state_stock_list","state_intro"]
 transitions = [
+    {
+        "trigger": "advance",
+        "source": ["user"],
+        "dest": "state_cat",
+        "conditions": "going_to_state_cat",
+    },
+    {
+        "trigger": "advance",
+        "source": ["state_cat"],
+        "dest": "user",
+        "conditions": "back_to_pre_state",
+    },
+    {
+        "trigger": "advance",
+        "source": ["state_cat","state_cat_show"],
+        "dest": "state_cat_show",
+        "conditions": "going_to_state_cat",
+    },
+    {
+        "trigger": "advance",
+        "source": ["state_cat", "state_cat_dog"],
+        "dest": "state_cat_dog",
+        "conditions": "going_to_state_cat_dog",
+    },
+    {
+        "trigger": "advance",
+        "source": ["state_cat_show","state_cat_dog"],
+        "dest": "state_cat",
+        "conditions": "back_to_pre_state",
+    },
     {
         "trigger":"advance",
         "source":"user",

@@ -9,6 +9,14 @@ class TocMachine(GraphMachine):
     def __init__(self, **machine_configs):
         self.machine = GraphMachine(model=self, **machine_configs)
         self.current_model=""
+    ## For judge whitch state to go
+
+    def going_to_state_cat(self,event):
+        text = event.message.text
+        return text.lower() == "cat"
+    def going_to_state_cat_dog(self,event):
+        text = event.message.text
+        return text.lower() == "cat_dog"
     def going_to_state_fsm(self,event):
         text = event.message.text
         return text.lower() == "fsm"
@@ -32,7 +40,6 @@ class TocMachine(GraphMachine):
         text = event.message.text
         return text.lower() == "stock_list"
 
-
     def back_to_pre_state(self, event):
         text = event.message.text
         return text.lower() == "back"
@@ -42,6 +49,17 @@ class TocMachine(GraphMachine):
     def back_to_tw(self, event):
         text = event.message.text
         return text.lower() == "back_tw"
+
+    ## For action entering a state
+    def on_enter_state_cat(self,event):
+        print('cat')
+        show_cat_menu(event.reply_token)
+    def on_enter_state_cat_show(self,event):
+        print('cat show')
+        send_cat_picture(event.reply_token)
+    def on_enter_state_cat_dog(self,event):
+        print('cat or dog')
+
 
 
     def on_enter_state_fsm(self,event):
