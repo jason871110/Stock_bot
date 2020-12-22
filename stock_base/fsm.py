@@ -1,8 +1,14 @@
 from transitions.extensions import GraphMachine
 
 from stock_base.utils import*
-
+from tensorflow.python.keras import backend as K
+from tensorflow.python.keras.models import load_model
+from tensorflow.python.keras.preprocessing import image
+import sys,os
+import numpy as np
 fsm_image_url = "https://i.imgur.com/QiLXZJq.jpg"
+import tensorflow as tf
+
 
 
 class TocMachine(GraphMachine):
@@ -58,9 +64,53 @@ class TocMachine(GraphMachine):
         print('cat show')
         send_cat_picture(event.reply_token)
     def on_enter_state_cat_dog(self,event):
+        print(tf.version.VERSION)
         print('cat or dog')
+        text = TextSendMessage(text="請上傳一張圖片:")
+        line_bot_api.reply_message(event.reply_token,text)
 
+    def on_enter_state_judge(self,event):
+        print('judge')
+        file = './cat/judge.jpg'
+        if os.path.exists(file):
 
+            print("辨識中")
+            net = load_model('./cat/model-resnet50-final.h5')
+            cls_list = ['cats', 'dogs']
+            img = image.load_img(file, target_size=(224, 224))
+            x = image.img_to_array(img)
+            x = np.expand_dims(x, axis=0)
+            pred = net.predict(x)[0]
+            top_inds = pred.argsort()[::-1][:5]
+            os.remove(file)
+            print("辨識完成")
+            # result=""
+            for i in top_inds:
+                print('    {:.3f}  {}'.format(pred[i], cls_list[i]))
+            result=cls_list[0]+":"+str(round(pred[0],3))+"\n"+cls_list[1]+":"+str(round(pred[1],3))
+            print(result)
+            text = TextSendMessage(text=result)
+            action=TemplateSendMessage(
+                alt_text='Buttons template',
+                template=ButtonsTemplate(
+                    title='Menu',
+                    text=' ',
+                    actions=[
+                        MessageTemplateAction(
+                            label='繼續辨識',
+                            text='cat_dog',
+                        ),
+                        MessageTemplateAction(
+                            label='Back',
+                            text='back',
+                        ),
+                    ]
+                )
+            )
+
+            line_bot_api.reply_message(event.reply_token,[text,action])
+        else:
+            print("no",file)
 
     def on_enter_state_fsm(self,event):
         print("I'm entering state_fsm")
@@ -91,10 +141,9 @@ class TocMachine(GraphMachine):
         reply_token = event.reply_token
         if self.current_model=="Tw50":
             back_action = get_back_action('tw')
-            text=TextSendMessage(text="這是在電機系一堂課之中的股票投資模擬績效平台，下圖的績效主要是因為目前這模型是以正反對作且以急快速停損的方式降低損失以最大化投資報酬率。實際上人類操作並沒辦法做到這種方式，所以我有特別針對這部分去做修改。所以這部分的績效圖看看就好。投資理財請謹慎小心!"
-                                      "")
+            text=TextSendMessage(text="這是在電機系一堂課之中的股票投資模擬績效平台，下圖的績效主要是因為目前這模型是以正反對作且以急快速停損的方式降低損失以最大化投資報酬率。實際上人類操作並沒辦法做到這種方式，所以我有特別針對這部分去做修改。所以這部分的績效圖看看就好。投資理財請謹慎小心!")
             line_bot_api.reply_message(reply_token,
-                                       [text,ImageSendMessage(original_content_url="https://i.imgur.com/v9aRaUV.jpg", preview_image_url="https://i.imgur.com/v9aRaUV.jpg"),back_action])
+                                       [text, ImageSendMessage(original_content_url="https://i.imgur.com/v9aRaUV.jpg", preview_image_url="https://i.imgur.com/v9aRaUV.jpg"),back_action])
         else:
             get_rl_performance(reply_token)
     def on_enter_state_intro(self,event):

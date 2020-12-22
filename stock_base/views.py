@@ -10,8 +10,9 @@ from linebot.models import *
 from stock_base.utils import send_text_message
 
 from stock_base.fsm import TocMachine
+import tempfile, os
 
-states = ["user","state_cat","state_cat_show","state_cat_dog","state_fsm","state_stock","state_Tw50","state_RL","state_performance","state_stock_list","state_intro"]
+states = ["user","state_cat","state_cat_show","state_cat_dog","state_judge","state_fsm","state_stock","state_Tw50","state_RL","state_performance","state_stock_list","state_intro"]
 transitions = [
     {
         "trigger": "advance",
@@ -33,9 +34,21 @@ transitions = [
     },
     {
         "trigger": "advance",
-        "source": ["state_cat", "state_cat_dog"],
+        "source": ["state_cat","state_judge"],
         "dest": "state_cat_dog",
         "conditions": "going_to_state_cat_dog",
+    },
+    {
+        "trigger": "advance",
+        "source": ["state_cat_dog"],
+        "dest": "state_judge",
+
+    },
+    {
+        "trigger": "advance",
+        "source": ["state_judge"],
+        "dest": "state_cat",
+        "conditions": "back_to_pre_state",
     },
     {
         "trigger": "advance",
@@ -175,6 +188,7 @@ def callback(request):
         return HttpResponseBadRequest()
 @csrf_exempt
 def send_message_test(request):
+
     if request.method == 'POST':
         signature = request.META['HTTP_X_LINE_SIGNATURE']
         body = request.body.decode('utf-8')
@@ -187,10 +201,25 @@ def send_message_test(request):
             return HttpResponseBadRequest()
 
         for event in events:
-            if not isinstance(event, MessageEvent):
-                continue
-            if not isinstance(event.message, TextMessage):
-                continue
+            if isinstance(event.message, ImageMessage):
+                ext = 'jpg'
+                message_content = line_bot_api.get_message_content(event.message.id)
+                static_tmp_path='./'
+                with tempfile.NamedTemporaryFile(dir=static_tmp_path, prefix=ext + '-', delete=False) as tf:
+                    for chunk in message_content.iter_content():
+                        tf.write(chunk)
+                    tempfile_path = tf.name
+
+                dist_path = './cat/judge' + '.' + ext
+                if os.path.exists( dist_path):
+                    os.remove(dist_path)
+                os.rename(tempfile_path, dist_path)
+
+            # if not isinstance(event, MessageEvent):
+            #     continue
+            # if not isinstance(event.message, TextMessage):
+            #     continue
+
             print(f"\nFSM STATE: {machine.state}")
             print(f"REQUEST BODY: \n{body}")
             response = machine.advance(event)
