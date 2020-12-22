@@ -4967,6 +4967,10 @@
       <change afterPath="$PROJECT_DIR$/venv/Scripts/winsound.pyd" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/venv/pip-selfcheck.json" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/venv/pyvenv.cfg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/my_state_diagram" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/stock_base/Untitled.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/stock_base/Untitled.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stock_base/fsm.py" beforeDir="false" afterPath="$PROJECT_DIR$/stock_base/fsm.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/stock_base/my_state_diagram.png" beforeDir="false" afterPath="$PROJECT_DIR$/stock_base/my_state_diagram.png" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -4997,8 +5001,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/stock_base/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-4752">
-              <caret line="13" selection-start-line="13" selection-end-line="13" />
+            <state relative-caret-position="187">
+              <caret line="155" column="1" lean-forward="true" selection-start-line="14" selection-end-line="155" selection-end-column="1" />
               <folding>
                 <element signature="e#1#84#0" expanded="true" />
               </folding>
@@ -5021,8 +5025,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/stock_base/fsm.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="98">
-              <caret line="110" column="69" selection-start-line="110" selection-start-column="69" selection-end-line="110" selection-end-column="69" />
+            <state relative-caret-position="192">
+              <caret line="8" column="42" selection-start-line="8" selection-start-column="42" selection-end-line="8" selection-end-column="42" />
               <folding>
                 <element signature="e#0#47#0" expanded="true" />
               </folding>
@@ -5206,12 +5210,12 @@
       <workItem from="1607827334636" duration="27088000" />
       <workItem from="1608206033581" duration="99000" />
       <workItem from="1608206560775" duration="49000" />
-      <workItem from="1608475121653" duration="28025000" />
+      <workItem from="1608475121653" duration="28924000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="61218000" />
+    <option name="totallyTimeSpent" value="62117000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -5238,8 +5242,8 @@
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.49932975" weight="0.3286119" />
       <window_info anchor="bottom" id="Database Changes" order="10" />
-      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.34651473" side_tool="true" visible="true" weight="0.31444758" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="12" sideWeight="0.65348524" visible="true" weight="0.31444758" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.34651473" side_tool="true" visible="true" weight="0.5311615" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="12" sideWeight="0.65348524" visible="true" weight="0.5311615" />
       <window_info anchor="bottom" id="Python Console" order="13" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -5307,16 +5311,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/stock_base/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-4752">
-          <caret line="13" selection-start-line="13" selection-end-line="13" />
-          <folding>
-            <element signature="e#1#84#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/stock_base/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -5327,10 +5321,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/stock_base/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="155" column="1" lean-forward="true" selection-start-line="14" selection-end-line="155" selection-end-column="1" />
+          <folding>
+            <element signature="e#1#84#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/stock_base/fsm.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="98">
-          <caret line="110" column="69" selection-start-line="110" selection-start-column="69" selection-end-line="110" selection-end-column="69" />
+        <state relative-caret-position="192">
+          <caret line="8" column="42" selection-start-line="8" selection-start-column="42" selection-end-line="8" selection-end-column="42" />
           <folding>
             <element signature="e#0#47#0" expanded="true" />
           </folding>

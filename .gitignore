@@ -4,3 +4,4 @@ models/
 scaler/
 test.jpg
 README.md
+*.ipynb

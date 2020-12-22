@@ -6,7 +6,7 @@ from tensorflow.python.keras.models import load_model
 from tensorflow.python.keras.preprocessing import image
 import sys,os
 import numpy as np
-fsm_image_url = "https://i.imgur.com/QiLXZJq.jpg"
+fsm_image_url = "https://imgur.com/ZKm9ZF2.jpg"
 import tensorflow as tf
 
 
