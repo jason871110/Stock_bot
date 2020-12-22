@@ -41,6 +41,30 @@
 
 ### FSM
 
-<img src='https://i.imgur.com/QiLXZJq.jpg'>
+<img src='https://imgur.com/ZKm9ZF2.jpg'>
 
 ### 貓咪圖片
+這邊主要是想作股票交易壓力都會很大所以實作一個可以回傳許多貓咪圖片和辨識貓狗的舒壓功能。
+
+1.  **基礎選單**:進入到聊天機器人後輸入cat就會進入到貓咪服務選單。會看到主選單內有兩個功能分別是**拿貓咪圖片**及**貓狗辨識器**。
+
+<img src='https://imgur.com/rXHVgme.jpg' width='600'>
+
+2.  **貓咪圖片拿取功能**:這邊是透過串接別人開法好的貓咪restful API來去作貓咪圖片的抓取，基本上使用方法如下圖，點擊**拿一張貓咪圖片**或是**再一張貓咪**的按鈕就可以拿取貓咪的圖片。
+
+<img src='https://imgur.com/iBakNXZ.jpg' width='800'>
+
+3.  **貓狗辨識功能**:這邊是我用[Resnet50](https://keras.io/api/applications/resnet/)去吃Kaggle上[貓狗辨識資料集](https://download.microsoft.com/download/3/E/1/3E1C3F21-ECDB-4869-8368-6DEBA77B919F/kagglecatsanddogs_3367a.zip) Train 出來的結果，使用的方式如下，進入貓狗辨識器後，按照指示上傳圖片等待模型跑一段時間就會拿到辨識的結果。
+
+<img src='https://imgur.com/I9Xlgw9.jpg' width='800'>
+
+- 當然除了正常辨識之外，壓力大的時候也可以拿來消費朋友，紓壓。
+
+<img src='https://imgur.com/3ypB7M4.jpg' width='200'>
+
+- 模型的部分，這便就簡單展示一下訓練出時accuracy和loss，可以看到其實train一個epoch就會有不錯的表現。以我目前訓練到5個epoch 也不會出現overfitting的問題，只是由於Resnet50不太好訓練所以就沒有在往下增加epoch 去看是否能再增加準確度。
+
+<img src='https://imgur.com/qvfnSgT.jpg' width='800'>
+
+
+
